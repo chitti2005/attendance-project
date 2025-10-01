@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Teacher Dashboard</title>
+</head>
+<body>
+  <h1>Attendance Records</h1>
+  <button onclick="location.href='/download'">Download CSV</button>
+  <input type="text" id="search" placeholder="Search by roll/name" onkeyup="filterTable()">
+  <table border="1">
+    <thead>
+      <tr><th>Date</th><th>Time</th><th>Roll No</th><th>Name</th><th>IP</th><th>Subject</th></tr>
+    </thead>
+    <tbody>
+    {% for row in rows %}
+    <tr>
+      <td>{{ row.Date }}</td>
+      <td>{{ row.Time }}</td>
+      <td>{{ row.RollNo }}</td>
+      <td>{{ row.Name }}</td>
+      <td>{{ row.IP }}</td>
+      <td>{{ row.Subject }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</body>
+<script>
+function filterTable(){
+  let input = document.getElementById("search").value.toLowerCase();
+  let rows = document.querySelectorAll("table tbody tr");
+  rows.forEach(r => {
+    let text = r.innerText.toLowerCase();
+    r.style.display = text.includes(input) ? "" : "none";
+  });
+}
+setTimeout(() => {
+  location.reload();
+}, 5000); // refresh every 5 seconds
+</script>
+</html>
